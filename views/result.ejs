@@ -179,7 +179,7 @@
 			<form action="/" method="POST">
 				<label for="option">Select an option:</label>
 				<select id="option" name="option">
-					<option value="0.1">0.1</option>
+					<option value="2.0">2.0</option>
 					<option value="WHITE METAL LANTERN">WHITE METAL LANTERN</option>
 					<option value="POPPY'S PLAYHOUSE BEDROOM ">POPPY'S PLAYHOUSE BEDROOM </option>
 					<option value="WHITE HANGING HEART T-LIGHT HOLDER">WHITE HANGING HEART T-LIGHT HOLDER</option>
@@ -187,7 +187,15 @@
 				<button type="submit">Submit</button>
 			</form>
 		</div>
-		
+		<div class="result-container">
+            <h3>Result</h3>
+            <h4>Number of frequent itemsets found: <%= aprioriResult.length %></h4>
+            <% if (aprioriResult) { %>
+                <p class="<%= aprioriResult === 'success' ? 'success' : 'error' %>">Result: <%= aprioriResult %></p>
+            <% } else { %>
+                <p>Please select an option above and click Submit.</p>
+            <% } %>
+        </div> 
 	</main>
 	<footer class="footer">
 		<p>&copy; 2023 Select Input Example</p>

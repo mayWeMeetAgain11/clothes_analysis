@@ -38,11 +38,29 @@ for (const [customerId, nestedMap] of groupedData) {
 
 let minSupport = 2;
 
-let f = apriori(transactions, minSupport);
-console.log(f);
+// let f = apriori(transactions, minSupport);
+// console.log(f);
 
 app.use(router);
 
 app.listen( { port: 3000,}, async () => {
     console.log('starting');
 });
+
+
+
+
+
+
+
+
+// {
+// <div class="result-container">
+//     <h3>Result</h3>
+//     <% if (result) { %>
+//         <p class="<%= result === 'success' ? 'success' : 'error' %>">Result: <%= result %></p>
+//     <% } else { %>
+//         <p>Please select an option above and click Submit.</p>
+//     <% } %>
+// </div> 
+// }
