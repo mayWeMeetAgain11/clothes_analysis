@@ -36,28 +36,8 @@ for (const [customerId, nestedMap] of groupedData) {
     }
 }
 
-
-
 app.use(router);
 
 app.listen( { port: 3000,}, async () => {
     console.log('starting');
 });
-
-
-
-
-
-
-
-
-// {
-// <div class="result-container">
-//     <h3>Result</h3>
-//     <% if (result) { %>
-//         <p class="<%= result === 'success' ? 'success' : 'error' %>">Result: <%= result %></p>
-//     <% } else { %>
-//         <p>Please select an option above and click Submit.</p>
-//     <% } %>
-// </div> 
-// }

@@ -47,7 +47,11 @@ export const result = async (req, res, next) => {
         ],
     ];
 
+    transactions2 = new Set(transactions2.map(transaction => new Set(transaction)));
+
     let aprioriResult = apriori(transactions2, option);
+
+    let aprioriResultUnique = Array.from(new Set(aprioriResult.map(transaction => JSON.stringify(transaction)))).map(transaction => JSON.parse(transaction));
     
-    res.render('index-system-analysis', { aprioriResult: aprioriResult });
+    res.render('index-system-analysis', { aprioriResult: aprioriResultUnique });
 }
