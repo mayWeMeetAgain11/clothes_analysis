@@ -2,9 +2,9 @@ import express from 'express'
 import * as d3 from 'd3';
 import fs from 'fs';
 import path from 'path';
-import {apriori} from './helper/aperiori';
+import {apriori} from './helper/aperiori.js';
 import bodyParser from 'body-parser';
-import router from './routes/main';
+import router from './routes/main.js';
 
 const app = express();
 
