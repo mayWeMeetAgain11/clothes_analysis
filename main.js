@@ -36,10 +36,7 @@ for (const [customerId, nestedMap] of groupedData) {
     }
 }
 
-let minSupport = 2;
 
-// let f = apriori(transactions, minSupport);
-// console.log(f);
 
 app.use(router);
 

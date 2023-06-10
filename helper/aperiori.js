@@ -1,29 +1,25 @@
+
 export function apriori(transactions, minSupport) {
     // Generate candidate itemsets of size 1
     let candidateItemsets = generateItemsetsOfSize1(transactions);
     let frequentItemsets = [];
-    console.log("before while");
     while (candidateItemsets.length > 0) {
         // Count the support of each candidate itemset
         let itemsetCounts = countItemsets(transactions, candidateItemsets);
-        console.log("count items");
         // Filter out candidate itemsets that don't meet the minimum support threshold
         let frequentItemsetsOfSizeK = filterItemsetsBySupport(
         itemsetCounts,
         minSupport
         );
-        console.log("after frequent");
         // Add frequent itemsets of size k to the list of frequent itemsets
         frequentItemsets.push(...frequentItemsetsOfSizeK);
         // Generate candidate itemsets of size k+1 from frequent itemsets of size k
         candidateItemsets = generateCandidateItemsets(frequentItemsetsOfSizeK);
-        console.log("generate candidit");
         // If there are no candidate itemsets left, terminate the algorithm
         if (candidateItemsets.length == 0) {
             break;
         }
     }
-    console.log("after while");
     return frequentItemsets;
 }
 

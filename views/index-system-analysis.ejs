@@ -144,19 +144,24 @@
 			letter-spacing: 1px;
 		}
 		.result-container p {
-			font-size: 1.2rem;
+			font-size: 16px;
 			margin-bottom: 20px;
 			line-height: 1.6;
 		}
 		.result-container .success {
 			color: green;
-			font-weight: bold;
-		}
-		.result-container .error {
-			color: red;
-			font-weight: bold;
-		}
 
+		}
+		.result {
+			padding: 10px;
+			margin: 10px;
+			background-color: #eee;
+			border-radius: 20px;
+		}
+		span {
+			color: #333;
+			font-weight: bold;
+		}
 		/* Footer styles */
 		.footer {
 			background-color: #f8f8f8;
@@ -176,18 +181,32 @@
 		<p>This is an example of a select input form element. It allows the user to choose one option from a list of options.</p>
 		<div class="form-container">
 			<h3>Select an option</h3>
-			<form action="/" method="POST">
+			<form action="/test" method="POST">
 				<label for="option">Select an option:</label>
 				<select id="option" name="option">
-					<option value="0.1">0.1</option>
-					<option value="WHITE METAL LANTERN">WHITE METAL LANTERN</option>
-					<option value="POPPY'S PLAYHOUSE BEDROOM ">POPPY'S PLAYHOUSE BEDROOM </option>
-					<option value="WHITE HANGING HEART T-LIGHT HOLDER">WHITE HANGING HEART T-LIGHT HOLDER</option>
+					<option value=2>2.0</option>
+					<option value=3>3.0</option>
+					<option value=1>1.0</option>
+					<option value=4>4.0</option>
 				</select>
 				<button type="submit">Submit</button>
 			</form>
 		</div>
-		
+		<div class="result-container">
+            <h3>Result</h3>
+            <h4>Number of frequent itemsets found: <%= aprioriResult.length %></h4>
+            <% if (aprioriResult) { %>
+				<% aprioriResult.forEach((set) => { %>
+					<div class="result">
+						<% set.forEach((item) => { %>
+							<p class="success"><span>Result :</span>  <%= item %></p>
+						<% }) %>
+					</div>
+				<% }) %>
+            <% } else { %>
+                <p>Please select an option above and click Submit.</p>
+            <% } %>
+        </div> 
 	</main>
 	<footer class="footer">
 		<p>&copy; 2023 Select Input Example</p>

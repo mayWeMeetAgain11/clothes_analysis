@@ -4,11 +4,11 @@ import fs from 'fs';
 import path from 'path';
 
 export const index = async (req, res, next) => {
-    res.render('index-system-analysis')
+    res.render('index-system-analysis', { aprioriResult: '' })
 }
 
 export const result = async (req, res, next) => {
-    const {minSupport} = req.body;
+    const {option} = req.body;;
     // const doubleValue = parseFloat(selectedValue);
     const data = d3.csvParse(fs.readFileSync(path.join('./', 'OnlineRetail.csv'), 'utf8'), d3.autoType);
 
@@ -31,8 +31,23 @@ export const result = async (req, res, next) => {
             transactions.push(transaction);
         }
     }
+    let transactions2 = [ 
+        [ 'WHITE HANGING HEART T-LIGHT HOLDER' ],
+        [ "POPPY'S PLAYHOUSE BEDROOM " ],
+        [ 'WHITE HANGING HEART T-LIGHT HOLDER' ],
+        [
+            "POPPY'S PLAYHOUSE BEDROOM ",
+            'WHITE HANGING HEART T-LIGHT HOLDER'
+        ],
+        [
+            'BLACK RECORD COVER FRAME',
+            "POPPY'S PLAYHOUSE BEDROOM ",
+            'WHITE METAL LANTERN',
+            'WHITE HANGING HEART T-LIGHT HOLDER'
+        ],
+    ];
 
-    let aprioriResult = apriori(transactions, minSupport);
+    let aprioriResult = apriori(transactions2, option);
     
-    res.render('result', { aprioriResult: aprioriResult });
+    res.render('index-system-analysis', { aprioriResult: aprioriResult });
 }
