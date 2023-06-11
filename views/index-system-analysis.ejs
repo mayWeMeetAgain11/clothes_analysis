@@ -157,6 +157,9 @@
 			margin: 10px;
 			background-color: #eee;
 			border-radius: 20px;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
 		}
 		span {
 			color: #333;
@@ -198,9 +201,12 @@
             <% if (aprioriResult) { %>
 				<% aprioriResult.forEach((set) => { %>
 					<div class="result">
-						<% set.forEach((item) => { %>
+						<div>
+						<% set.itemset.forEach((item) => { %>
 							<p class="success"><span>Result :</span>  <%= item %></p>
 						<% }) %>
+						</div>
+						<p> support : <%= set.count %></p>
 					</div>
 				<% }) %>
             <% } else { %>

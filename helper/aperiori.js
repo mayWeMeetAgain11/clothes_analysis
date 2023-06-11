@@ -9,7 +9,8 @@ export function apriori(transactions, minSupport) {
         // Filter out candidate itemsets that don't meet the minimum support threshold
         let frequentItemsetsOfSizeK = filterItemsetsBySupport(
         itemsetCounts,
-        minSupport
+        minSupport,
+        transactions
         );
         // Add frequent itemsets of size k to the list of frequent itemsets
         frequentItemsets.push(...frequentItemsetsOfSizeK);
@@ -46,11 +47,11 @@ export function countItemsets(transactions, itemsets) {
     return itemsetCounts;
 }
 
-export function filterItemsetsBySupport(itemsetCounts, minSupport) {
+export function filterItemsetsBySupport(itemsetCounts, minSupport, transactions) {
     let frequentItemsets = [];
     for (let [itemset, count] of itemsetCounts) {
         if (count >= minSupport) {
-            frequentItemsets.push(itemset);
+            frequentItemsets.push({itemset: itemset, count: count / transactions.length});
         }
     }
     return frequentItemsets;
@@ -60,8 +61,8 @@ export function generateCandidateItemsets(frequentItemsets) {
     let candidateItemsets = new Set();
     for (let i = 0; i < frequentItemsets.length; i++) {
         for (let j = i + 1; j < frequentItemsets.length; j++) {
-            let union = new Set([...frequentItemsets[i], ...frequentItemsets[j]]);
-            if (union.size == frequentItemsets[i].size + 1) {
+            let union = new Set([...frequentItemsets[i].itemset, ...frequentItemsets[j].itemset]);
+            if (union.size == frequentItemsets[i].itemset.size + 1) {
                 candidateItemsets.add(union);
             }
         }

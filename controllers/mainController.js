@@ -48,6 +48,7 @@ export const result = async (req, res, next) => {
     ];
 
     let aprioriResult = apriori(transactions2, option);
+    console.log(aprioriResult);
     
     res.render('index-system-analysis', { aprioriResult: aprioriResult });
 }
