@@ -34,7 +34,13 @@ export const result = async (req, res, next) => {
     let transactions2 = [
         ['WHITE HANGING HEART T-LIGHT HOLDER'],
         ["POPPY'S PLAYHOUSE BEDROOM "],
+        ["POPPY'S PLAYHOUSE KITCHEN"],
         ['WHITE HANGING HEART T-LIGHT HOLDER'],
+        [
+            'WHITE HANGING HEART T-LIGHT HOLDER',
+            "POPPY'S PLAYHOUSE BEDROOM",
+            "POPPY'S PLAYHOUSE KITCHEN"
+        ],
         [
             "POPPY'S PLAYHOUSE BEDROOM ",
             'WHITE HANGING HEART T-LIGHT HOLDER'
@@ -50,14 +56,21 @@ export const result = async (req, res, next) => {
     // transactions2 = new Set(transactions2.map(transaction => new Set(transaction)));
 
     let aprioriResult = apriori(transactions2, option);
-    // let seen = new Set()
-    // let result = []
-    // for (let d of aprioriResult) {
-    //     if (!seen.has(d.itemset)) {
-    //         console.log("yes");
-    //         seen.add(d.itemset)
-    //         result.push(d)
-    //     }
-    // }
-    res.render('index-system-analysis', { aprioriResult: aprioriResult });
+
+    let finalAprioriResult = [];
+    let unique = true;
+    for (let i = 0; i < aprioriResult.length; i++) {
+        for (let j = i+1; j < aprioriResult.length; j++) {
+            if (aprioriResult[i].itemset.size === aprioriResult[j].itemset.size && [...aprioriResult[i].itemset].every(value => aprioriResult[j].itemset.has(value))) {
+                unique = false;
+                break;
+            }
+        }
+        if (unique) {
+            finalAprioriResult.push(aprioriResult[i]);
+        }
+        unique = true;
+    }
+    
+    res.render('index-system-analysis', { aprioriResult: finalAprioriResult });
 }
