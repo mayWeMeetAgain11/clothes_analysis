@@ -1,4 +1,4 @@
-import {apriori} from '../helper/aperiori.js';
+import { apriori } from '../helper/aperiori.js';
 import * as d3 from 'd3';
 import fs from 'fs';
 import path from 'path';
@@ -8,7 +8,7 @@ export const index = async (req, res, next) => {
 }
 
 export const result = async (req, res, next) => {
-    const {option} = req.body;;
+    const { option } = req.body;;
     // const doubleValue = parseFloat(selectedValue);
     const data = d3.csvParse(fs.readFileSync(path.join('./', 'OnlineRetail.csv'), 'utf8'), d3.autoType);
 
@@ -31,10 +31,10 @@ export const result = async (req, res, next) => {
             transactions.push(transaction);
         }
     }
-    let transactions2 = [ 
-        [ 'WHITE HANGING HEART T-LIGHT HOLDER' ],
-        [ "POPPY'S PLAYHOUSE BEDROOM " ],
-        [ 'WHITE HANGING HEART T-LIGHT HOLDER' ],
+    let transactions2 = [
+        ['WHITE HANGING HEART T-LIGHT HOLDER'],
+        ["POPPY'S PLAYHOUSE BEDROOM "],
+        ['WHITE HANGING HEART T-LIGHT HOLDER'],
         [
             "POPPY'S PLAYHOUSE BEDROOM ",
             'WHITE HANGING HEART T-LIGHT HOLDER'
@@ -47,16 +47,17 @@ export const result = async (req, res, next) => {
         ],
     ];
 
-    transactions2 = new Set(transactions2.map(transaction => new Set(transaction)));
+    // transactions2 = new Set(transactions2.map(transaction => new Set(transaction)));
 
     let aprioriResult = apriori(transactions2, option);
-    // let aprioriResultUnique = [];
-    // for (const frequentItemset of aprioriResult) {
-    //     const items = frequentItemset.items.map(item => item.name).sort();
-    //     const count = frequentItemset.count;
-    //     aprioriResultUnique.push({ items, count });
+    // let seen = new Set()
+    // let result = []
+    // for (let d of aprioriResult) {
+    //     if (!seen.has(d.itemset)) {
+    //         console.log("yes");
+    //         seen.add(d.itemset)
+    //         result.push(d)
+    //     }
     // }
-    let aprioriResultUnique = Array.from(new Set(aprioriResult.map(transaction => JSON.stringify(transaction)))).map(transaction => JSON.parse(transaction));
-    
-    res.render('index-system-analysis', { aprioriResult: aprioriResultUnique });
+    res.render('index-system-analysis', { aprioriResult: aprioriResult });
 }
