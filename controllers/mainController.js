@@ -47,8 +47,16 @@ export const result = async (req, res, next) => {
         ],
     ];
 
+    transactions2 = new Set(transactions2.map(transaction => new Set(transaction)));
+
     let aprioriResult = apriori(transactions2, option);
-    console.log(aprioriResult);
+    // let aprioriResultUnique = [];
+    // for (const frequentItemset of aprioriResult) {
+    //     const items = frequentItemset.items.map(item => item.name).sort();
+    //     const count = frequentItemset.count;
+    //     aprioriResultUnique.push({ items, count });
+    // }
+    let aprioriResultUnique = Array.from(new Set(aprioriResult.map(transaction => JSON.stringify(transaction)))).map(transaction => JSON.parse(transaction));
     
-    res.render('index-system-analysis', { aprioriResult: aprioriResult });
+    res.render('index-system-analysis', { aprioriResult: aprioriResultUnique });
 }
